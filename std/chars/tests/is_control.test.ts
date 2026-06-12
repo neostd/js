@@ -1,0 +1,98 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { isControl, isControlAt, isControlUnsafe } from "../src/is_control.ts";
+
+test("chars::isControl", (): void => {
+  assert.ok(!isControl(0x10ffff));
+  assert.ok(!isControl(0.32));
+  assert.ok(isControl(10));
+  assert.ok(isControl(0));
+  assert.ok(isControl(31));
+  assert.ok(isControl(127));
+  assert.ok(isControl(128));
+  assert.ok(!isControl(255));
+  assert.ok(!isControl(256));
+  assert.ok(!isControl(-1));
+  assert.ok(!isControl(-128));
+  assert.ok(!isControl(-255));
+  assert.ok(!isControl(-256));
+  assert.ok(!isControl(Infinity));
+  assert.ok(!isControl(-Infinity));
+  assert.ok(!isControl(NaN));
+  assert.ok(!isControl(0.1));
+  assert.ok(!isControl(-0.1));
+  assert.ok(!isControl(0.9));
+  assert.ok(!isControl(-0.9));
+  assert.ok(!isControl(1.1));
+  assert.ok(!isControl(-1.1));
+  assert.ok(!isControl(1.9));
+  assert.ok(!isControl(-1.9));
+  assert.ok(isControl(1.0));
+  assert.ok(!isControl(-1.0));
+  assert.ok(isControl(0.0));
+  assert.ok(isControl(-0.0));
+  assert.ok(!isControl(0.0000000000001));
+  assert.ok(!isControl(-0.0000000000001));
+  assert.ok(!isControl(0.0000000000009));
+  assert.ok(!isControl(-0.0000000000009));
+  assert.ok(!isControl(0.0000000000011));
+  assert.ok(!isControl(-0.0000000000011));
+  assert.ok(!isControl(0.0000000000019));
+  assert.ok(!isControl(-0.0000000000019));
+  assert.ok(isControl(0.0));
+  assert.ok(isControl(-0.0));
+});
+
+test("chars::isControlUnsafe", (): void => {
+  assert.ok(!isControlUnsafe(0x10ffff));
+  assert.ok(!isControlUnsafe(0.32));
+  assert.ok(isControlUnsafe(10));
+  assert.ok(isControlUnsafe(0));
+  assert.ok(isControlUnsafe(31));
+  assert.ok(isControlUnsafe(127));
+  assert.ok(isControlUnsafe(128));
+  assert.ok(!isControlUnsafe(255));
+  assert.ok(!isControlUnsafe(256));
+  assert.ok(!isControlUnsafe(-1));
+  assert.ok(!isControlUnsafe(-128));
+  assert.ok(!isControlUnsafe(-255));
+  assert.ok(!isControlUnsafe(-256));
+  assert.ok(!isControlUnsafe(Infinity));
+  assert.ok(!isControlUnsafe(-Infinity));
+  assert.ok(!isControlUnsafe(NaN));
+  assert.ok(!isControlUnsafe(0.1));
+  assert.ok(!isControlUnsafe(-0.1));
+  assert.ok(!isControlUnsafe(0.9));
+  assert.ok(!isControlUnsafe(-0.9));
+  assert.ok(!isControlUnsafe(1.1));
+  assert.ok(!isControlUnsafe(-1.1));
+  assert.ok(!isControlUnsafe(1.9));
+  assert.ok(!isControlUnsafe(-1.9));
+  assert.ok(isControlUnsafe(1.0));
+  assert.ok(!isControlUnsafe(-1.0));
+  assert.ok(isControlUnsafe(0.0));
+  assert.ok(isControlUnsafe(-0.0));
+  assert.ok(!isControlUnsafe(0.0000000000001));
+  assert.ok(!isControlUnsafe(-0.0000000000001));
+  assert.ok(!isControlUnsafe(0.0000000000009));
+  assert.ok(!isControlUnsafe(-0.0000000000009));
+  assert.ok(!isControlUnsafe(0.0000000000011));
+  assert.ok(!isControlUnsafe(-0.0000000000011));
+  assert.ok(!isControlUnsafe(0.0000000000019));
+  assert.ok(!isControlUnsafe(-0.0000000000019));
+  assert.ok(isControlUnsafe(0.0));
+  assert.ok(isControlUnsafe(-0.0));
+});
+
+test("chars::isControlAt", (): void => {
+  const str = "Holy 💩\n\t";
+  assert.ok(!isControlAt(str, 0));
+  assert.ok(!isControlAt(str, 1));
+  assert.ok(!isControlAt(str, 2));
+  assert.ok(!isControlAt(str, 3));
+  assert.ok(!isControlAt(str, 4));
+  assert.ok(!isControlAt(str, 5)); // 💩
+  assert.ok(!isControlAt(str, 6)); // 💩
+  assert.ok(isControlAt(str, 7));
+  assert.ok(isControlAt(str, 8));
+});

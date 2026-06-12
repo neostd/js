@@ -1,0 +1,56 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { isLetter, isLetterAt } from "../src/is_letter.ts";
+
+test("chars::isLetter", (): void => {
+  assert.ok(!isLetter(0x10ffff));
+  assert.ok(!isLetter(0.32));
+  assert.ok(isLetter(65));
+  assert.ok(isLetter(97));
+  assert.ok(!isLetter(0));
+  assert.ok(!isLetter(31));
+  assert.ok(!isLetter(127));
+  assert.ok(!isLetter(128));
+  assert.ok(isLetter(255));
+  assert.ok(isLetter(256));
+  assert.ok(isLetter(228));
+  assert.ok(isLetter(0x0860));
+  assert.ok(isLetter(0x11144));
+  assert.ok(!isLetter(-1));
+  assert.ok(!isLetter(-128));
+  assert.ok(!isLetter(-255));
+  assert.ok(!isLetter(-256));
+  assert.ok(!isLetter(Infinity));
+  assert.ok(!isLetter(-Infinity));
+  assert.ok(!isLetter(NaN));
+  assert.ok(!isLetter(0.1));
+  assert.ok(!isLetter(-0.1));
+  assert.ok(!isLetter(0.9));
+  assert.ok(!isLetter(-0.9));
+  assert.ok(!isLetter(1.1));
+  assert.ok(!isLetter(-1.1));
+  assert.ok(!isLetter(1.9));
+  assert.ok(!isLetter(-1.9));
+  assert.ok(!isLetter(1.0));
+  assert.ok(!isLetter(-1.0));
+  assert.ok(!isLetter(0.0));
+  assert.ok(!isLetter(-0.0));
+  assert.ok(!isLetter(0.0000000000001));
+  assert.ok(!isLetter(-0.0000000000001));
+  assert.ok(!isLetter(0.0000000000009));
+  assert.ok(!isLetter(-0.0000000000009));
+  assert.ok(!isLetter(0.0000000000011));
+  assert.ok(!isLetter(-0.0000000000011));
+  assert.ok(!isLetter(0.0000000000019));
+  assert.ok(!isLetter(-0.0000000000019));
+  assert.ok(!isLetter(0.0));
+  assert.ok(!isLetter(-0.0));
+});
+
+test("chars::isLetterAt", (): void => {
+  const str = "ŸŰ\n0";
+  assert.ok(isLetterAt(str, 0));
+  assert.ok(isLetterAt(str, 1));
+  assert.ok(!isLetterAt(str, 2));
+  assert.ok(!isLetterAt(str, 3));
+});

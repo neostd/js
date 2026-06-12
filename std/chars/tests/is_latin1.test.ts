@@ -1,0 +1,51 @@
+import { test } from "node:test";
+import assert from "node:assert/strict";
+import { isLatin1, isLatin1At } from "../src/is_latin1.ts";
+
+test("chars::isLatin1", (): void => {
+  assert.ok(isLatin1(65));
+  assert.ok(isLatin1(0));
+  assert.ok(isLatin1(127));
+  assert.ok(isLatin1(128));
+  assert.ok(isLatin1(255));
+  assert.ok(!isLatin1(256));
+  assert.ok(!isLatin1(-1));
+  assert.ok(!isLatin1(-128));
+  assert.ok(!isLatin1(-255));
+  assert.ok(!isLatin1(-256));
+  assert.ok(!isLatin1(Infinity));
+  assert.ok(!isLatin1(-Infinity));
+  assert.ok(!isLatin1(NaN));
+  assert.ok(!isLatin1(0.1));
+  assert.ok(!isLatin1(-0.1));
+  assert.ok(!isLatin1(0.9));
+  assert.ok(!isLatin1(-0.9));
+  assert.ok(!isLatin1(1.1));
+  assert.ok(!isLatin1(-1.1));
+  assert.ok(!isLatin1(1.9));
+  assert.ok(!isLatin1(-1.9));
+  assert.ok(isLatin1(1.0));
+  assert.ok(!isLatin1(-1.0));
+  assert.ok(isLatin1(0.0));
+  assert.ok(isLatin1(-0.0));
+  assert.ok(!isLatin1(0.0000000000001));
+  assert.ok(!isLatin1(-0.0000000000001));
+  assert.ok(!isLatin1(0.0000000000009));
+  assert.ok(!isLatin1(-0.0000000000009));
+  assert.ok(!isLatin1(0.0000000000011));
+  assert.ok(!isLatin1(-0.0000000000011));
+  assert.ok(!isLatin1(0.0000000000019));
+  assert.ok(!isLatin1(-0.0000000000019));
+  assert.ok(isLatin1(0.0));
+  assert.ok(isLatin1(-0.0));
+});
+
+test("chars::isLatin1At", (): void => {
+  const str = "Holy 💩";
+  assert.ok(isLatin1At(str, 0));
+  assert.ok(isLatin1At(str, 1));
+  assert.ok(isLatin1At(str, 2));
+  assert.ok(isLatin1At(str, 3));
+  assert.ok(isLatin1At(str, 4));
+  assert.ok(!isLatin1At(str, 5));
+});

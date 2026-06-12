@@ -1,0 +1,75 @@
+{
+  "name": "@neostd/chars",
+  "version": "0.0.0-alpha.0",
+  "description": "Utf8 character utilities like isDigit, isUpper, toLower, isSymbol, isSpace, isPunc, simpleFold.",
+  "keywords": [
+      "chars",
+      "characters",
+      "simplefold",
+      "unicode",
+      "runes"
+  ],
+  "homepage": "https://github.com/neostd/js#README.md",
+  "bugs": {
+    "url": "https://github.com/netstd/js/issues"
+  },
+  "license": "MIT",
+  "author": "Mr. Neobeard <mrneobeard@pm.me>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neostd/js.git"
+  },
+  "files": [
+    "esm"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./esm/index.mjs",
+    "./all": "./esm/all.mjs",
+    "./constants": "./esm/constants.mjs",
+    "./is_ascii": "./esm/is_ascii.mjs",
+    "./is_char": "./esm/is_char.mjs",
+    "./is_control": "./esm/is_control.mjs",
+    "./is_digit": "./esm/is_digit.mjs",
+    "./is_latin1": "./esm/is_latin1.mjs",
+    "./is_letter": "./esm/is_letter.mjs",
+    "./is_letter_or_digit": "./esm/is_letter_or_digit.mjs",
+    "./is_lower": "./esm/is_lower.mjs",
+    "./is_punc": "./esm/is_punc.mjs",
+    "./is_space": "./esm/is_space.mjs",
+    "./is_symbol": "./esm/is_symbol.mjs",
+    "./is_upper": "./esm/is_upper.mjs",
+    "./simple_fold": "./esm/simple_fold.mjs",
+    "./tables/case": "./esm/tables/case.mjs",
+    "./tables/l": "./esm/tables/l.mjs",
+    "./tables/latin1": "./esm/tables/latin1.mjs",
+    "./tables/ll": "./esm/tables/ll.mjs",
+    "./tables/lu": "./esm/tables/lu.mjs",
+    "./tables/nd": "./esm/tables/nd.mjs",
+    "./tables/p": "./esm/tables/p.mjs",
+    "./tables/s": "./esm/tables/s.mjs",
+    "./to_lower": "./esm/to_lower.mjs",
+    "./to_upper": "./esm/to_upper.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "node --test",
+    "test:bun": "bun run test",
+    "test:deno": "deno task test",
+    "test:all": "vp run test:bun && vp run test:deno && vp run test",
+    "check": "vp check",
+    "prepublishOnly": "vp run build"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "bumpp": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}
