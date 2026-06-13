@@ -98,7 +98,7 @@ jobs:
         run: node eng/scripts/select-std-packages.mjs --mode ci
 
       - name: Check std packages
-        if: steps.packages.outputs.packages != ''
+        if: runner.os == 'Linux' && steps.packages.outputs.packages != ''
         shell: bash
         env:
           PACKAGES: ${{ steps.packages.outputs.packages }}
@@ -126,5 +126,6 @@ jobs:
         run: node eng/scripts/run-std-package-tasks.mjs --task deno-test
 
       - name: Audit dependencies
+        if: runner.os == 'Linux'
         shell: bash
         run: pnpm audit --audit-level high

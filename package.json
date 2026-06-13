@@ -17,12 +17,5 @@
     "typescript": "catalog:",
     "vite-plus": "catalog:"
   },
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "^11.6.0",
-      "onFail": "download"
-    }
-  },
   "packageManager": "pnpm@11.6.0"
 }
