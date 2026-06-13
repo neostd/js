@@ -17,16 +17,23 @@ function parseArgs(argv) {
 }
 
 function run(command, args, options = {}) {
-  const executable = process.platform === "win32" && (command === "pnpm" || command === "npm") ? `${command}.cmd` : command;
+  const executable =
+    process.platform === "win32" && (command === "pnpm" || command === "npm")
+      ? `${command}.cmd`
+      : command;
   const result = spawnSync(executable, args, {
     stdio: "inherit",
     ...options,
   });
-  if (result.status !== 0) throw new Error(`${command} ${args.join(" ")} failed with exit code ${result.status ?? 1}.`);
+  if (result.status !== 0)
+    throw new Error(`${command} ${args.join(" ")} failed with exit code ${result.status ?? 1}.`);
 }
 
 function runStatus(command, args, options = {}) {
-  const executable = process.platform === "win32" && (command === "pnpm" || command === "npm") ? `${command}.cmd` : command;
+  const executable =
+    process.platform === "win32" && (command === "pnpm" || command === "npm")
+      ? `${command}.cmd`
+      : command;
   return spawnSync(executable, args, {
     encoding: "utf8",
     stdio: "pipe",
@@ -35,7 +42,10 @@ function runStatus(command, args, options = {}) {
 }
 
 function runOutput(command, args, options = {}) {
-  const executable = process.platform === "win32" && (command === "pnpm" || command === "npm") ? `${command}.cmd` : command;
+  const executable =
+    process.platform === "win32" && (command === "pnpm" || command === "npm")
+      ? `${command}.cmd`
+      : command;
   const result = spawnSync(executable, args, {
     encoding: "utf8",
     stdio: "pipe",
@@ -54,14 +64,16 @@ function readManifest(dir) {
 }
 
 function readStdManifests() {
-  return new Map(readdirSync("std", { withFileTypes: true })
-    .filter((entry) => entry.isDirectory())
-    .map((entry) => `std/${entry.name}`)
-    .filter((dir) => existsSync(`${dir}/package.json`))
-    .map((dir) => {
-      const manifest = readManifest(dir);
-      return [manifest.name, manifest];
-    }));
+  return new Map(
+    readdirSync("std", { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => `std/${entry.name}`)
+      .filter((dir) => existsSync(`${dir}/package.json`))
+      .map((dir) => {
+        const manifest = readManifest(dir);
+        return [manifest.name, manifest];
+      }),
+  );
 }
 
 function isWorkspaceRange(range) {
@@ -77,7 +89,12 @@ function assertNeostdPackage(dir) {
 
 function npmVersionPublished(dir) {
   const manifest = readManifest(dir);
-  const result = runStatus("pnpm", ["view", `${manifest.name}@${manifest.version}`, "version", "--json"]);
+  const result = runStatus("pnpm", [
+    "view",
+    `${manifest.name}@${manifest.version}`,
+    "version",
+    "--json",
+  ]);
   if (result.status !== 0) return false;
 
   try {
@@ -90,7 +107,8 @@ function npmVersionPublished(dir) {
 async function jsrPackageVersionPublished(name, version) {
   const response = await fetch(`https://jsr.io/${name}/meta.json`);
   if (response.status === 404) return false;
-  if (!response.ok) throw new Error(`Failed to check JSR package metadata for ${name}: ${response.status}`);
+  if (!response.ok)
+    throw new Error(`Failed to check JSR package metadata for ${name}: ${response.status}`);
 
   const metadata = await response.json();
   return Boolean(metadata.versions?.[version]);
@@ -113,7 +131,8 @@ function internalWorkspaceDependencies(dir) {
     .filter(([, range]) => isWorkspaceRange(range))
     .map(([name]) => {
       const dependency = stdManifests.get(name);
-      if (!dependency) throw new Error(`${dir} depends on ${name}, but ${name} is not a std package.`);
+      if (!dependency)
+        throw new Error(`${dir} depends on ${name}, but ${name} is not a std package.`);
       return dependency;
     });
 }
@@ -121,7 +140,8 @@ function internalWorkspaceDependencies(dir) {
 async function unpublishedInternalJsrDependencies(dir) {
   const unpublished = [];
   for (const dependency of internalWorkspaceDependencies(dir)) {
-    if (!await jsrPackageVersionPublished(dependency.name, dependency.version)) unpublished.push(dependency);
+    if (!(await jsrPackageVersionPublished(dependency.name, dependency.version)))
+      unpublished.push(dependency);
   }
   return unpublished;
 }
@@ -131,7 +151,9 @@ async function waitForInternalJsrDependencies(dir) {
     const unpublished = await unpublishedInternalJsrDependencies(dir);
     if (unpublished.length === 0) return;
 
-    const names = unpublished.map((dependency) => `${dependency.name}@${dependency.version}`).join(", ");
+    const names = unpublished
+      .map((dependency) => `${dependency.name}@${dependency.version}`)
+      .join(", ");
     if (attempt === 11) throw new Error(`${dir} has unpublished JSR dependencies: ${names}`);
     console.log(`Waiting for JSR dependencies for ${dir}: ${names}`);
     await new Promise((resolve) => setTimeout(resolve, 5000));
@@ -167,7 +189,10 @@ async function withJsrPackageJson(dir, restore, callback) {
       if (!isWorkspaceRange(range)) continue;
 
       const dependency = stdManifests.get(name);
-      if (!dependency) throw new Error(`${dir} ${section}.${name} uses ${range}, but ${name} is not a std package.`);
+      if (!dependency)
+        throw new Error(
+          `${dir} ${section}.${name} uses ${range}, but ${name} is not a std package.`,
+        );
 
       manifest[section][name] = `jsr:${name}@${dependency.version}`;
       imports[name] = `jsr:${name}@${dependency.version}`;
@@ -178,7 +203,9 @@ async function withJsrPackageJson(dir, restore, callback) {
 
   if (changed) writeFileSync(packagePath, `${JSON.stringify(manifest, null, 2)}\n`);
   if (Object.keys(imports).length > 0) {
-    const jsrConfig = existsSync(`${dir}/jsr.json`) ? JSON.parse(readFileSync(`${dir}/jsr.json`, "utf8")) : {};
+    const jsrConfig = existsSync(`${dir}/jsr.json`)
+      ? JSON.parse(readFileSync(`${dir}/jsr.json`, "utf8"))
+      : {};
     const denoConfig = originalDeno ? JSON.parse(originalDeno) : jsrConfig;
     denoConfig.imports = {
       ...denoConfig.imports,
@@ -208,7 +235,8 @@ function assertTagRelease(dir) {
     throw new Error("Publishing is only allowed from std release tags.");
   }
 
-  if (!/^std\/v\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/.test(refName)) throw new Error(`Invalid std release tag: ${refName}`);
+  if (!/^std\/v\d+\.\d+\.\d+(?:[-+][0-9A-Za-z.-]+)?$/.test(refName))
+    throw new Error(`Invalid std release tag: ${refName}`);
 }
 
 function hasScript(dir, script) {
@@ -245,39 +273,56 @@ async function runTask(dir, task) {
       if (hasScript(dir, "test:bun")) run("pnpm", ["--dir", dir, "run", "test:bun"]);
       break;
     case "deno-test":
-      if (hasScript(dir, "test:deno") && hasDenoConfig(dir)) run("pnpm", ["--dir", dir, "run", "test:deno"]);
+      if (hasScript(dir, "test:deno") && hasDenoConfig(dir))
+        run("pnpm", ["--dir", dir, "run", "test:deno"]);
       break;
     case "npm-publish-dry-run":
       assertNeostdPackage(dir);
       if (npmVersionPublished(dir)) {
-        console.log(`Skipping npm dry-run for ${dir}: ${readManifest(dir).version} is already published.`);
+        console.log(
+          `Skipping npm dry-run for ${dir}: ${readManifest(dir).version} is already published.`,
+        );
         break;
       }
-      withPackedTarball(dir, (tarball) => run("npm", ["publish", tarball, "--dry-run", "--access", "public"]));
+      withPackedTarball(dir, (tarball) =>
+        run("npm", ["publish", tarball, "--dry-run", "--access", "public"]),
+      );
       break;
     case "jsr-publish-dry-run":
       assertNeostdPackage(dir);
       if (hasJsrConfig(dir)) {
         if (await jsrVersionPublished(dir)) {
-          console.log(`Skipping JSR dry-run for ${dir}: ${readManifest(dir).version} is already published.`);
+          console.log(
+            `Skipping JSR dry-run for ${dir}: ${readManifest(dir).version} is already published.`,
+          );
           break;
         }
         const unpublished = await unpublishedInternalJsrDependencies(dir);
         if (unpublished.length > 0) {
-          const names = unpublished.map((dependency) => `${dependency.name}@${dependency.version}`).join(", ");
-          console.log(`Skipping JSR dry-run for ${dir}: internal JSR dependencies are not published yet: ${names}.`);
+          const names = unpublished
+            .map((dependency) => `${dependency.name}@${dependency.version}`)
+            .join(", ");
+          console.log(
+            `Skipping JSR dry-run for ${dir}: internal JSR dependencies are not published yet: ${names}.`,
+          );
           break;
         }
-        await withJsrPackageJson(dir, true, async () => run("deno", ["publish", "--dry-run", "--allow-dirty"], { cwd: dir }));
+        await withJsrPackageJson(dir, true, async () =>
+          run("deno", ["publish", "--dry-run", "--allow-dirty"], { cwd: dir }),
+        );
       } else {
-        console.log(`Skipping JSR dry-run for ${dir}: no jsr.json, jsr.jsonc, deno.json, or deno.jsonc.`);
+        console.log(
+          `Skipping JSR dry-run for ${dir}: no jsr.json, jsr.jsonc, deno.json, or deno.jsonc.`,
+        );
       }
       break;
     case "npm-publish":
       assertTagRelease(dir);
       assertNeostdPackage(dir);
       if (npmVersionPublished(dir)) {
-        console.log(`Skipping npm publish for ${dir}: ${readManifest(dir).version} is already published.`);
+        console.log(
+          `Skipping npm publish for ${dir}: ${readManifest(dir).version} is already published.`,
+        );
         break;
       }
       withPackedTarball(dir, (tarball) => run("npm", ["publish", tarball, "--access", "public"]));
@@ -287,7 +332,9 @@ async function runTask(dir, task) {
       assertNeostdPackage(dir);
       if (hasJsrConfig(dir)) {
         if (await jsrVersionPublished(dir)) {
-          console.log(`Skipping JSR publish for ${dir}: ${readManifest(dir).version} is already published.`);
+          console.log(
+            `Skipping JSR publish for ${dir}: ${readManifest(dir).version} is already published.`,
+          );
           break;
         }
         await waitForInternalJsrDependencies(dir);
@@ -296,7 +343,9 @@ async function runTask(dir, task) {
           run("deno", ["publish", "--allow-dirty"], { cwd: dir });
         });
       } else {
-        console.log(`Skipping JSR publish for ${dir}: no jsr.json, jsr.jsonc, deno.json, or deno.jsonc.`);
+        console.log(
+          `Skipping JSR publish for ${dir}: no jsr.json, jsr.jsonc, deno.json, or deno.jsonc.`,
+        );
       }
       break;
     case "release-dry-run":
@@ -319,7 +368,10 @@ async function runTask(dir, task) {
 
 const args = parseArgs(process.argv.slice(2));
 const task = args.task;
-const packages = (args.packages || process.env.PACKAGES || "").split(/\s+/).filter(Boolean).map((dir) => dir.replace(/\\/g, "/"));
+const packages = (args.packages || process.env.PACKAGES || "")
+  .split(/\s+/)
+  .filter(Boolean)
+  .map((dir) => dir.replace(/\\/g, "/"));
 
 if (!task) throw new Error("Missing --task.");
 if (packages.length === 0) {

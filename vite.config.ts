@@ -21,7 +21,7 @@ export default defineConfig({
         files: ["**/*.d.mts"],
         rules: {
           "no-unused-private-class-members": "off",
-        }
+        },
       },
     ],
     rules: {
@@ -33,5 +33,5 @@ export default defineConfig({
     alias: {
       "node:test": nodeTestShim,
     },
-  }
+  },
 });

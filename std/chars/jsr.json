@@ -31,11 +31,6 @@
     "./to-upper": "./src/to-upper.ts"
   },
   "publish": {
-    "include": [
-      "LICENSE.md",
-      "README.md",
-      "jsr.json",
-      "src/**/*.ts"
-    ]
+    "include": ["LICENSE.md", "README.md", "jsr.json", "src/**/*.ts"]
   }
 }

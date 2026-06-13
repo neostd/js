@@ -25,11 +25,6 @@
     "./utils": "./src/utils.ts"
   },
   "publish": {
-    "include": [
-      "LICENSE.md",
-      "README.md",
-      "jsr.json",
-      "src/**/*.ts"
-    ]
+    "include": ["LICENSE.md", "README.md", "jsr.json", "src/**/*.ts"]
   }
 }

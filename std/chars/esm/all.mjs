@@ -4,7 +4,11 @@ import { isControl, isControlAt, isControlUnsafe } from "./is-control.mjs";
 import { isDigit, isDigitAt, isDigitUnsafe } from "./is-digit.mjs";
 import { isLatin1, isLatin1At } from "./is-latin1.mjs";
 import { isLetter, isLetterAt, isLetterUnsafe } from "./is-letter.mjs";
-import { isLetterOrDigit, isLetterOrDigitAt, isLetterOrDigitUnsafe } from "./is-letter-or-digit.mjs";
+import {
+  isLetterOrDigit,
+  isLetterOrDigitAt,
+  isLetterOrDigitUnsafe,
+} from "./is-letter-or-digit.mjs";
 import { isLower, isLowerAt, isLowerUnsafe } from "./is-lower.mjs";
 import { isPunc, isPuncAt, isPuncUnsafe } from "./is-punc.mjs";
 import { isSpace, isSpaceAt, isSpaceUnsafe } from "./is-space.mjs";
@@ -13,4 +17,41 @@ import { isUpper, isUpperAt, isUpperUnsafe } from "./is-upper.mjs";
 import { toLower } from "./to-lower.mjs";
 import { toUpper } from "./to-upper.mjs";
 import { equalFold, simpleFold } from "./simple-fold.mjs";
-export { equalFold, isAscii, isAsciiAt, isChar, isControl, isControlAt, isControlUnsafe, isDigit, isDigitAt, isDigitUnsafe, isLatin1, isLatin1At, isLetter, isLetterAt, isLetterOrDigit, isLetterOrDigitAt, isLetterOrDigitUnsafe, isLetterUnsafe, isLower, isLowerAt, isLowerUnsafe, isPunc, isPuncAt, isPuncUnsafe, isSpace, isSpaceAt, isSpaceUnsafe, isSymbol, isSymbolAt, isSymbolUnsafe, isUpper, isUpperAt, isUpperUnsafe, simpleFold, toLower, toUpper };
+export {
+  equalFold,
+  isAscii,
+  isAsciiAt,
+  isChar,
+  isControl,
+  isControlAt,
+  isControlUnsafe,
+  isDigit,
+  isDigitAt,
+  isDigitUnsafe,
+  isLatin1,
+  isLatin1At,
+  isLetter,
+  isLetterAt,
+  isLetterOrDigit,
+  isLetterOrDigitAt,
+  isLetterOrDigitUnsafe,
+  isLetterUnsafe,
+  isLower,
+  isLowerAt,
+  isLowerUnsafe,
+  isPunc,
+  isPuncAt,
+  isPuncUnsafe,
+  isSpace,
+  isSpaceAt,
+  isSpaceUnsafe,
+  isSymbol,
+  isSymbolAt,
+  isSymbolUnsafe,
+  isUpper,
+  isUpperAt,
+  isUpperUnsafe,
+  simpleFold,
+  toLower,
+  toUpper,
+};

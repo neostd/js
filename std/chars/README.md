@@ -34,32 +34,32 @@ pnpm add @neostd/chars
 ## Usage
 
 ```typescript
-import { 
-    isUpperAt, 
-    isLowerAt, 
-    isDigitAt, 
-    isAscii, 
-    isLatin1, 
-    isSpaceAt,
-    equalFold
+import {
+  isUpperAt,
+  isLowerAt,
+  isDigitAt,
+  isAscii,
+  isLatin1,
+  isSpaceAt,
+  equalFold,
 } from "@neostd/chars";
 
 const str = "Hello, World 123";
 console.log(isUpperAt(str, 0)); // true
 console.log(isUpperAt(str, 1)); // false
 console.log(isLowerAt(str, 1)); // false
-console.log(isDigitAt(str, 1)); // false 
+console.log(isDigitAt(str, 1)); // false
 console.log(isDigitAt(str, 14)); // true
 
-const left = "Ꙏ".codePointAt(0)
-const right = "ꙏ".codePointAt(0)
+const left = "Ꙏ".codePointAt(0);
+const right = "ꙏ".codePointAt(0);
 console.log(equalFold(left, right)); // true
 
 console.log(isAsciiAt("⇼", 0)); // false
 console.log(isAsciiAt(str, 0)); // true
 console.log(isLatin1At("⇼", 0)); // false
 
-const str2 = " \n\r\t\f"
+const str2 = " \n\r\t\f";
 console.log(isSpaceAt(str2, 0)); // true
 console.log(isSpaceAt(str2, 1)); // true
 console.log(isSpaceAt(str2, 2)); // true
@@ -139,7 +139,7 @@ export const CHAR_EQUAL = 61; /* = */
 // Digits
 export const CHAR_0 = 48; /* 0 */
 export const CHAR_9 = 57; /* 9 */
-export const MAX_RUNE = 0x10FFFF;
+export const MAX_RUNE = 0x10ffff;
 ```
 
 ## License

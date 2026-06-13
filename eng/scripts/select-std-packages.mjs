@@ -21,7 +21,9 @@ function readStdPackages() {
     .map((entry) => join("std", entry.name).replace(/\\/g, "/"))
     .filter((dir) => existsSync(join(dir, "package.json")));
 
-  return new Map(packageDirs.map((dir) => [dir, JSON.parse(readFileSync(join(dir, "package.json"), "utf8"))]));
+  return new Map(
+    packageDirs.map((dir) => [dir, JSON.parse(readFileSync(join(dir, "package.json"), "utf8"))]),
+  );
 }
 
 function gitDiffFiles(base, head) {
@@ -58,9 +60,11 @@ function releaseTrainChangeAffectsAllPackages(base, head) {
   const previousVersion = parseVersion(previous.nextVersion);
   const currentVersion = parseVersion(current.nextVersion);
 
-  return previousVersion.major !== currentVersion.major
-    || previousVersion.minor !== currentVersion.minor
-    || previousVersion.label !== currentVersion.label;
+  return (
+    previousVersion.major !== currentVersion.major ||
+    previousVersion.minor !== currentVersion.minor ||
+    previousVersion.label !== currentVersion.label
+  );
 }
 
 function allPackages(manifests) {
@@ -94,19 +98,37 @@ function selectForCi(args, manifests) {
   const eventName = args["event-name"] || process.env.EVENT_NAME;
   if (eventName === "schedule" || eventName === "workflow_dispatch") return allPackages(manifests);
 
-  const files = eventName === "pull_request"
-    ? gitDiffFiles(args["base-sha"] || process.env.BASE_SHA, args["head-sha"] || process.env.HEAD_SHA) ?? gitDiffFiles("HEAD^1", "HEAD")
-    : gitDiffFiles(args["before-sha"] || process.env.BEFORE_SHA, args["head-sha"] || process.env.HEAD_SHA);
+  const files =
+    eventName === "pull_request"
+      ? (gitDiffFiles(
+          args["base-sha"] || process.env.BASE_SHA,
+          args["head-sha"] || process.env.HEAD_SHA,
+        ) ?? gitDiffFiles("HEAD^1", "HEAD"))
+      : gitDiffFiles(
+          args["before-sha"] || process.env.BEFORE_SHA,
+          args["head-sha"] || process.env.HEAD_SHA,
+        );
 
   if (files === null) return allPackages(manifests);
-  if (files.some((file) => /^(eng\/scripts\/|package\.json$|pnpm-lock\.yaml$|pnpm-workspace\.yaml$|vite\.config\.ts$)/.test(file))) {
+  if (
+    files.some((file) =>
+      /^(eng\/scripts\/|package\.json$|pnpm-lock\.yaml$|pnpm-workspace\.yaml$|vite\.config\.ts$)/.test(
+        file,
+      ),
+    )
+  ) {
     return allPackages(manifests);
   }
 
-  if (files.includes("std/release.json") && releaseTrainChangeAffectsAllPackages(
-    eventName === "pull_request" ? args["base-sha"] || process.env.BASE_SHA : args["before-sha"] || process.env.BEFORE_SHA,
-    args["head-sha"] || process.env.HEAD_SHA,
-  )) {
+  if (
+    files.includes("std/release.json") &&
+    releaseTrainChangeAffectsAllPackages(
+      eventName === "pull_request"
+        ? args["base-sha"] || process.env.BASE_SHA
+        : args["before-sha"] || process.env.BEFORE_SHA,
+      args["head-sha"] || process.env.HEAD_SHA,
+    )
+  ) {
     return allPackages(manifests);
   }
 
@@ -123,7 +145,7 @@ function selectForRelease(args, manifests) {
   const inputPackage = args.package || process.env.INPUT_PACKAGE || "";
   const refName = args["ref-name"] || process.env.REF_NAME || "";
 
-  if (/^std\/v/.test(refName)) return allPackages(manifests);
+  if (refName.startsWith("std/v")) return allPackages(manifests);
 
   if (inputPackage && inputPackage !== "all") return new Set([inputPackage.replace(/\\/g, "/")]);
 
@@ -136,7 +158,10 @@ function validateSelected(selected, manifests) {
       throw new Error(`Invalid std package: ${dir}`);
     }
   }
-  return sortPackagesByDependencies([...selected].filter((dir) => manifests.has(dir)), manifests);
+  return sortPackagesByDependencies(
+    [...selected].filter((dir) => manifests.has(dir)),
+    manifests,
+  );
 }
 
 function sortPackagesByDependencies(packages, manifests) {
@@ -173,7 +198,8 @@ function sortPackagesByDependencies(packages, manifests) {
 const args = parseArgs(process.argv.slice(2));
 const mode = args.mode || "ci";
 const manifests = readStdPackages();
-const selected = mode === "release" ? selectForRelease(args, manifests) : selectForCi(args, manifests);
+const selected =
+  mode === "release" ? selectForRelease(args, manifests) : selectForCi(args, manifests);
 const packages = validateSelected(selected, manifests);
 
 const value = packages.join(" ");

@@ -34,4 +34,23 @@ declare const _default: {
   toUpper: typeof toUpper;
 };
 //#endregion
-export { Char, _default as default, equalFold, isAscii, isChar, isControl, isDigit, isLatin1, isLetter, isLetterOrDigit, isLower, isPunc, isSpace, isSymbol, isUpper, simpleFold, toLower, toUpper };
+export {
+  Char,
+  _default as default,
+  equalFold,
+  isAscii,
+  isChar,
+  isControl,
+  isDigit,
+  isLatin1,
+  isLetter,
+  isLetterOrDigit,
+  isLower,
+  isPunc,
+  isSpace,
+  isSymbol,
+  isUpper,
+  simpleFold,
+  toLower,
+  toUpper,
+};

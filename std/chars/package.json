@@ -3,11 +3,11 @@
   "version": "0.0.0-alpha.0",
   "description": "Utf8 character utilities like isDigit, isUpper, toLower, isSymbol, isSpace, isPunc, simpleFold.",
   "keywords": [
-    "chars",
     "characters",
+    "chars",
+    "runes",
     "simplefold",
-    "unicode",
-    "runes"
+    "unicode"
   ],
   "homepage": "https://github.com/neostd/js#README.md",
   "bugs": {

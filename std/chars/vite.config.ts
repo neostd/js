@@ -41,7 +41,6 @@ export default defineConfig({
     exports: true,
     outDir: "esm",
     platform: "node",
-    
   },
   test: {
     runner: runner,
@@ -50,5 +49,5 @@ export default defineConfig({
     alias: {
       "node:test": nodeTestShim,
     },
-  }
+  },
 });
