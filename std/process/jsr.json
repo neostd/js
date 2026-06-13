@@ -1,0 +1,24 @@
+{
+  "$schema": "https://jsr.io/schema/config-file.v1.json",
+  "name": "@neostd/process",
+  "version": "0.0.0-alpha.0",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./args": "./src/args.ts",
+    "./chdir": "./src/chdir.ts",
+    "./cwd": "./src/cwd.ts",
+    "./env": "./src/env.ts",
+    "./exec-path": "./src/exec-path.ts",
+    "./exit": "./src/exit.ts",
+    "./kill": "./src/kill.ts",
+    "./pid": "./src/pid.ts",
+    "./popd": "./src/popd.ts",
+    "./pushd": "./src/pushd.ts",
+    "./streams": "./src/streams.ts",
+    "./title": "./src/title.ts"
+  },
+  "publish": {
+    "include": ["LICENSE.md", "README.md", "jsr.json", "src/**/*.ts"]
+  }
+}

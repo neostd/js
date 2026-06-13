@@ -1,0 +1,69 @@
+{
+  "name": "@neostd/process",
+  "version": "0.0.0-alpha.0",
+  "description": "Cross-runtime current process abstraction for args, cwd, env, standard streams, chdir, etc.",
+  "keywords": [
+    "args",
+    "bun",
+    "browser",
+    "deno",
+    "stdio",
+    "stdin",
+    "stdout",
+    "pushd",
+    "popd",
+    "cwd",
+    "process",
+    "stdio"
+  ],
+  "homepage": "https://github.com/neostd/js/tree/dev/std/process#readme",
+  "bugs": {
+    "url": "https://github.com/netstd/js/issues"
+  },
+  "license": "MIT",
+  "author": "Mr. Neobeard <mrneobeard@pm.me>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neostd/js.git"
+  },
+  "files": [
+    "esm"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./esm/index.mjs",
+    "./args": "./esm/args.mjs",
+    "./chdir": "./esm/chdir.mjs",
+    "./cwd": "./esm/cwd.mjs",
+    "./env": "./esm/env.mjs",
+    "./exec-path": "./esm/exec-path.mjs",
+    "./exit": "./esm/exit.mjs",
+    "./kill": "./esm/kill.mjs",
+    "./pid": "./esm/pid.mjs",
+    "./popd": "./esm/popd.mjs",
+    "./pushd": "./esm/pushd.mjs",
+    "./streams": "./esm/streams.mjs",
+    "./title": "./esm/title.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test",
+    "test:bun": "bun test",
+    "test:deno": "deno test -A --no-check",
+    "check": "vp check",
+    "prepublishOnly": "vp run build",
+    "fix": "vp check --fix"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "bumpp": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}
