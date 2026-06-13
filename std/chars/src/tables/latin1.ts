@@ -271,7 +271,7 @@ export const latin1 = [
 
 const LINEAR_MAX = 18;
 
-export function is16(v: Array<number[]>, char: number) {
+export function is16(v: Array<number[]>, char: number): boolean {
   if (v.length <= LINEAR_MAX || char <= 255) {
     for (const range of v) {
       const [l, h, stride] = range;
@@ -302,7 +302,7 @@ export function is16(v: Array<number[]>, char: number) {
   return false;
 }
 
-export function is32(v: Array<number[]>, char: number) {
+export function is32(v: Array<number[]>, char: number): boolean {
   if (v.length <= LINEAR_MAX) {
     for (const range of v) {
       const [l, h, stride] = range;
