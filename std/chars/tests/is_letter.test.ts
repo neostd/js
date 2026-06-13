@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isLetter, isLetterAt } from "../src/is_letter.ts";
+import { isLetter, isLetterAt } from "../src/is-letter.ts";
 
 test("chars::isLetter", (): void => {
   assert.ok(!isLetter(0x10ffff));

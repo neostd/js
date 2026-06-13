@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isLower, isLowerAt } from "../src/is_lower.ts";
+import { isLower, isLowerAt } from "../src/is-lower.ts";
 
 test("chars::isLower", (): void => {
   assert.ok(isLower(97)); // a

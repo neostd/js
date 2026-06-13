@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isDigit, isDigitAt } from "../src/is_digit.ts";
+import { isDigit, isDigitAt } from "../src/is-digit.ts";
 
 test("chars::isDigit", (): void => {
   assert.ok(isDigit(48)); // 0

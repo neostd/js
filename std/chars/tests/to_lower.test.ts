@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { toLower } from "../src/to_lower.ts";
+import { toLower } from "../src/to-lower.ts";
 
 test("chars::toLower", (): void => {
   assert.equal(toLower(0x0041), 0x0061);

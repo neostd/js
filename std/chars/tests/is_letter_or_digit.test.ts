@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isLetterOrDigit, isLetterOrDigitAt } from "../src/is_letter_or_digit.ts";
+import { isLetterOrDigit, isLetterOrDigitAt } from "../src/is-letter-or-digit.ts";
 
 test("chars::isLetterOrDigit", (): void => {
   assert.ok(!isLetterOrDigit(0x10ffff));

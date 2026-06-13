@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isAscii, isAsciiAt } from "../src/is_ascii.ts";
+import { isAscii, isAsciiAt } from "../src/is-ascii.ts";
 
 test("chars::isAscii", (): void => {
   assert.ok(isAscii(65));

@@ -1,4 +1,10 @@
+import { join } from "path";
+import { fileURLToPath } from "url";
 import { defineConfig } from "vite-plus";
+
+const dir = join(import.meta.dirname, "..", "..");
+const runner = join(dir, "tools", "node-test-runner.mjs");
+const nodeTestShim = fileURLToPath(new URL("../../tools/node-test-shim.ts", import.meta.url));
 
 export default defineConfig({
   pack: {
@@ -6,7 +12,6 @@ export default defineConfig({
       tsgo: true,
     },
     entry: [
-      "./src/tables/case.ts",
       "./src/tables/l.ts",
       "./src/tables/latin1.ts",
       "./src/tables/ll.ts",
@@ -17,35 +22,33 @@ export default defineConfig({
       "./src/all.ts",
       "./src/constants.ts",
       "./src/index.ts",
-      "./src/is_ascii.ts",
-      "./src/is_char.ts",
-      "./src/is_control.ts",
-      "./src/is_digit.ts",
-      "./src/is_latin1.ts",
-      "./src/is_letter_or_digit.ts",
-      "./src/is_letter.ts",
-      "./src/is_lower.ts",
-      "./src/is_punc.ts",
-      "./src/is_space.ts",
-      "./src/is_symbol.ts",
-      "./src/is_upper.ts",
-      "./src/simple_fold.ts",
-      "./src/to_lower.ts",
-      "./src/to_upper.ts",
+      "./src/is-ascii.ts",
+      "./src/is-char.ts",
+      "./src/is-control.ts",
+      "./src/is-digit.ts",
+      "./src/is-latin1.ts",
+      "./src/is-letter-or-digit.ts",
+      "./src/is-letter.ts",
+      "./src/is-lower.ts",
+      "./src/is-punc.ts",
+      "./src/is-space.ts",
+      "./src/is-symbol.ts",
+      "./src/is-upper.ts",
+      "./src/simple-fold.ts",
+      "./src/to-lower.ts",
+      "./src/to-upper.ts",
     ],
     exports: true,
     outDir: "esm",
     platform: "node",
+    
   },
-  isBundled: false,
-  lint: {
-    options: {
-      typeAware: true,
-      typeCheck: true,
-    },
-    rules: {
-      "typescript/no-floating-promises": "off",
-    },
+  test: {
+    runner: runner,
   },
-  fmt: {},
+  resolve: {
+    alias: {
+      "node:test": nodeTestShim,
+    },
+  }
 });

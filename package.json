@@ -8,7 +8,7 @@
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
+  "license": "MIT",
   "devEngines": {
     "packageManager": {
       "name": "pnpm",
@@ -17,5 +17,11 @@
     }
   },
   "type": "module",
-  "packageManager": "pnpm@11.6.0"
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "bumpp": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
 }

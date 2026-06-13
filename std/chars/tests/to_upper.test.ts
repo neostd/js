@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { toUpper } from "../src/to_upper.ts";
+import { toUpper } from "../src/to-upper.ts";
 
 test("chars::toUpper", (): void => {
   assert.equal(toUpper(0x0041), 0x0041);

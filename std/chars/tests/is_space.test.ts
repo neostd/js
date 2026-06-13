@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isSpace, isSpaceAt } from "../src/is_space.ts";
+import { isSpace, isSpaceAt } from "../src/is-space.ts";
 
 test("chars::isSpace", (): void => {
   assert.ok(isSpace(32));

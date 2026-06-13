@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { equalFold, simpleFold } from "../src/simple_fold.ts";
+import { equalFold, simpleFold } from "../src/simple-fold.ts";
 
 test("chars::simpleFold", (): void => {
   assert.equal(simpleFold(0x0041), 0x0061);

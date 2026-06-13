@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isPunc, isPuncAt } from "../src/is_punc.ts";
+import { isPunc, isPuncAt } from "../src/is-punc.ts";
 
 test("chars::isPunc", (): void => {
   assert.ok(isPunc(33)); // !

@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isLatin1, isLatin1At } from "../src/is_latin1.ts";
+import { isLatin1, isLatin1At } from "../src/is-latin1.ts";
 
 test("chars::isLatin1", (): void => {
   assert.ok(isLatin1(65));

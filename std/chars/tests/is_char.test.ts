@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isChar } from "../src/is_char.ts";
+import { isChar } from "../src/is-char.ts";
 
 test("chars::isChar", (): void => {
   assert.ok(isChar(0x1f600));

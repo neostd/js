@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isControl, isControlAt, isControlUnsafe } from "../src/is_control.ts";
+import { isControl, isControlAt, isControlUnsafe } from "../src/is-control.ts";
 
 test("chars::isControl", (): void => {
   assert.ok(!isControl(0x10ffff));

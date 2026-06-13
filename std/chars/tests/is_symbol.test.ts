@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isSymbol, isSymbolAt } from "../src/is_symbol.ts";
+import { isSymbol, isSymbolAt } from "../src/is-symbol.ts";
 
 test("chars::isSymbol", (): void => {
   assert.ok(isSymbol(0x0024));

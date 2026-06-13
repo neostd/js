@@ -1,6 +1,6 @@
 import { test } from "node:test";
 import assert from "node:assert/strict";
-import { isUpper, isUpperAt } from "../src/is_upper.ts";
+import { isUpper, isUpperAt } from "../src/is-upper.ts";
 
 test("chars::isUpper", (): void => {
   assert.ok(!isUpper(97)); // a

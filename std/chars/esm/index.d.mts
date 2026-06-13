@@ -1,19 +1,19 @@
-import { isAscii } from "./is_ascii.mjs";
-import { isChar } from "./is_char.mjs";
+import { isAscii } from "./is-ascii.mjs";
+import { isChar } from "./is-char.mjs";
 import { t as Char } from "./types-CzHdav0e.mjs";
-import { isControl } from "./is_control.mjs";
-import { isDigit } from "./is_digit.mjs";
-import { isLatin1 } from "./is_latin1.mjs";
-import { isLetter } from "./is_letter.mjs";
-import { isLetterOrDigit } from "./is_letter_or_digit.mjs";
-import { isLower } from "./is_lower.mjs";
-import { isPunc } from "./is_punc.mjs";
-import { isSpace } from "./is_space.mjs";
-import { isSymbol } from "./is_symbol.mjs";
-import { isUpper } from "./is_upper.mjs";
-import { equalFold, simpleFold } from "./simple_fold.mjs";
-import { toLower } from "./to_lower.mjs";
-import { toUpper } from "./to_upper.mjs";
+import { isControl } from "./is-control.mjs";
+import { isDigit } from "./is-digit.mjs";
+import { isLatin1 } from "./is-latin1.mjs";
+import { isLetter } from "./is-letter.mjs";
+import { isLetterOrDigit } from "./is-letter-or-digit.mjs";
+import { isLower } from "./is-lower.mjs";
+import { isPunc } from "./is-punc.mjs";
+import { isSpace } from "./is-space.mjs";
+import { isSymbol } from "./is-symbol.mjs";
+import { isUpper } from "./is-upper.mjs";
+import { equalFold, simpleFold } from "./simple-fold.mjs";
+import { toLower } from "./to-lower.mjs";
+import { toUpper } from "./to-upper.mjs";
 
 //#region src/index.d.ts
 declare const _default: {
