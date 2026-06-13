@@ -16,41 +16,48 @@ function parseArgs(argv) {
   return args;
 }
 
+function quoteWindowsShellArg(value) {
+  return `"${String(value).replace(/([\\"])/g, "\\$1")}"`;
+}
+
+function spawnCommand(command, args, options) {
+  if (process.platform === "win32" && (command === "pnpm" || command === "npm")) {
+    return spawnSync([command, ...args].map(quoteWindowsShellArg).join(" "), {
+      shell: true,
+      ...options,
+    });
+  }
+
+  return spawnSync(command, args, options);
+}
+
 function run(command, args, options = {}) {
-  const executable =
-    process.platform === "win32" && (command === "pnpm" || command === "npm")
-      ? `${command}.cmd`
-      : command;
-  const result = spawnSync(executable, args, {
+  const result = spawnCommand(command, args, {
     stdio: "inherit",
     ...options,
   });
+  if (result.error) throw result.error;
   if (result.status !== 0)
     throw new Error(`${command} ${args.join(" ")} failed with exit code ${result.status ?? 1}.`);
 }
 
 function runStatus(command, args, options = {}) {
-  const executable =
-    process.platform === "win32" && (command === "pnpm" || command === "npm")
-      ? `${command}.cmd`
-      : command;
-  return spawnSync(executable, args, {
+  const result = spawnCommand(command, args, {
     encoding: "utf8",
     stdio: "pipe",
     ...options,
   });
+  if (result.error) throw result.error;
+  return result;
 }
 
 function runOutput(command, args, options = {}) {
-  const executable =
-    process.platform === "win32" && (command === "pnpm" || command === "npm")
-      ? `${command}.cmd`
-      : command;
-  const result = spawnSync(executable, args, {
+  const result = spawnCommand(command, args, {
     encoding: "utf8",
     stdio: "pipe",
     ...options,
   });
+  if (result.error) throw result.error;
   if (result.status !== 0) {
     process.stdout.write(result.stdout ?? "");
     process.stderr.write(result.stderr ?? "");
