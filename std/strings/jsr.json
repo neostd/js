@@ -1,0 +1,32 @@
+{
+  "$schema": "https://jsr.io/schema/config-file.v1.json",
+  "name": "@neostd/strings",
+  "version": "0.0.0-alpha.0",
+  "license": "MIT",
+  "exports": {
+    ".": "./src/index.ts",
+    "./camelize": "./src/camelize.ts",
+    "./capitalize": "./src/capitalize.ts",
+    "./dasherize": "./src/dasherize.ts",
+    "./ends-with": "./src/ends-with.ts",
+    "./equal": "./src/equal.ts",
+    "./index-of": "./src/index-of.ts",
+    "./inflect": "./src/inflect.ts",
+    "./is-empty": "./src/is-empty.ts",
+    "./is-null": "./src/is-null.ts",
+    "./is-space": "./src/is-space.ts",
+    "./is-undefined": "./src/is-undefined.ts",
+    "./last-index-of": "./src/last-index-of.ts",
+    "./pascalize": "./src/pascalize.ts",
+    "./split": "./src/split.ts",
+    "./starts-with": "./src/starts-with.ts",
+    "./string-builder": "./src/string-builder.ts",
+    "./titleize": "./src/titleize.ts",
+    "./to-char-array": "./src/to-char-array.ts",
+    "./trim": "./src/trim.ts",
+    "./underscore": "./src/underscore.ts"
+  },
+  "publish": {
+    "include": ["LICENSE.md", "README.md", "jsr.json", "src/**/*.ts"]
+  }
+}

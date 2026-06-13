@@ -1,7 +1,7 @@
 {
   "name": "@neostd/chars",
   "version": "0.0.0-alpha.0",
-  "description": "Utf8 character utilities like isDigit, isUpper, toLower, isSymbol, isSpace, isPunc, simpleFold.",
+  "description": "Utf8 character utilities like isDigit, isUpper, toLower, isSymbol, isSpace, isPunc, simpleFold, etc.",
   "keywords": [
     "characters",
     "chars",

@@ -1,0 +1,73 @@
+{
+  "name": "@neostd/strings",
+  "version": "0.0.0-alpha.0",
+  "description": "Cross-runtime string utilities for comparisons, casing, trimming, validation, inflection, and efficient string building.",
+  "keywords": [
+    "case-insensitive",
+    "inflection",
+    "strings",
+    "text",
+    "unicode"
+  ],
+  "homepage": "https://github.com/neostd/js#README.md",
+  "bugs": {
+    "url": "https://github.com/netstd/js/issues"
+  },
+  "license": "MIT",
+  "author": "Mr. Neobeard <mrneobeard@pm.me>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neostd/js.git"
+  },
+  "files": [
+    "esm"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./esm/index.mjs",
+    "./camelize": "./esm/camelize.mjs",
+    "./capitalize": "./esm/capitalize.mjs",
+    "./dasherize": "./esm/dasherize.mjs",
+    "./ends-with": "./esm/ends-with.mjs",
+    "./equal": "./esm/equal.mjs",
+    "./index-of": "./esm/index-of.mjs",
+    "./inflect": "./esm/inflect.mjs",
+    "./is-empty": "./esm/is-empty.mjs",
+    "./is-null": "./esm/is-null.mjs",
+    "./is-space": "./esm/is-space.mjs",
+    "./is-undefined": "./esm/is-undefined.mjs",
+    "./last-index-of": "./esm/last-index-of.mjs",
+    "./pascalize": "./esm/pascalize.mjs",
+    "./split": "./esm/split.mjs",
+    "./starts-with": "./esm/starts-with.mjs",
+    "./string-builder": "./esm/string-builder.mjs",
+    "./titleize": "./esm/titleize.mjs",
+    "./to-char-array": "./esm/to-char-array.mjs",
+    "./trim": "./esm/trim.mjs",
+    "./underscore": "./esm/underscore.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "node ../../eng/scripts/node-test-runner.mjs",
+    "test:bun": "bun run test",
+    "check": "vp check",
+    "prepublishOnly": "vp run build",
+    "fix": "vp check --fix"
+  },
+  "dependencies": {
+    "@neostd/chars": "workspace:*",
+    "@neostd/slices": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "bumpp": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

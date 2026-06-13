@@ -1,0 +1,46 @@
+import { deepStrictEqual } from "node:assert/strict";
+import { test } from "node:test";
+import * as strings from "../src/index.ts";
+
+test("strings::index exports the public API", () => {
+  deepStrictEqual(Object.keys(strings).sort(), [
+    "StringBuilder",
+    "camelize",
+    "capitalize",
+    "dasherize",
+    "endsWith",
+    "endsWithFold",
+    "equal",
+    "equalFold",
+    "indexOf",
+    "indexOfFold",
+    "inflect",
+    "isEmpty",
+    "isNull",
+    "isNullOrEmpty",
+    "isNullOrSpace",
+    "isSpace",
+    "isUndefined",
+    "lastIndexOf",
+    "lastIndexOfFold",
+    "pascalize",
+    "pluralize",
+    "singularize",
+    "split",
+    "startsWith",
+    "startsWithFold",
+    "titleize",
+    "toCharArray",
+    "toString",
+    "trim",
+    "trimChar",
+    "trimEnd",
+    "trimEndChar",
+    "trimEndSlice",
+    "trimSlice",
+    "trimStart",
+    "trimStartChar",
+    "trimStartSlice",
+    "underscore",
+  ]);
+});
