@@ -30,8 +30,8 @@ export async function runNodeTests(cwd = process.cwd(), testDir = "tests") {
 }
 
 if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) {
-  //const code = await runNodeTests();
-  //process.exit(code);
+  const code = await runNodeTests();
+  process.exit(code);
 }
 
 export default NodeTestRunner;

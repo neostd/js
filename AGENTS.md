@@ -6,6 +6,14 @@ This project is using Vite+, a unified toolchain built on top of Vite, Rolldown,
 
 Docs are local at `node_modules/vite-plus/docs` or online at https://viteplus.dev/guide/.
 
+## Agent Context
+
+- Keep agent-related docs under `.agents/context/`.
+- Put future-work and in-progress docs in `.agents/context/wip/`.
+- Put notes in `.agents/context/notes/`.
+- Put design documents in `.agents/context/design/`.
+- Put cross-cutting concerns and contracts in `.agents/context/contracts/`.
+
 ## Review Checklist
 
 - [ ] Run `vp install` after pulling remote changes and before getting started.

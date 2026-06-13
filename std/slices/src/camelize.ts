@@ -111,7 +111,6 @@ export function camelize(value: CharBuffer | string, options?: CamelizeOptions):
         continue;
       }
 
-  
       sb.appendChar(options.preserveCase ? c : toLower(c));
       last = c;
       continue;

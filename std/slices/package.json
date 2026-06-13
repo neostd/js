@@ -43,7 +43,7 @@
   "scripts": {
     "build": "vp pack",
     "dev": "vp pack --watch",
-    "test": "node ../../tools/node-test-runner.mjs",
+    "test": "node ../../eng/scripts/node-test-runner.mjs",
     "test:bun": "bun run test",
     "check": "vp check",
     "prepublishOnly": "vp run build",
