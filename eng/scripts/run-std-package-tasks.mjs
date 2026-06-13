@@ -1,6 +1,6 @@
 import { existsSync, mkdtempSync, readdirSync, readFileSync, rmSync, writeFileSync } from "node:fs";
 import { spawnSync } from "node:child_process";
-import { isAbsolute, join } from "node:path";
+import { delimiter, isAbsolute, join } from "node:path";
 import { tmpdir } from "node:os";
 
 function parseArgs(argv) {
@@ -17,15 +17,33 @@ function parseArgs(argv) {
 }
 
 function quoteWindowsShellArg(value) {
-  return `"${String(value).replace(/([\\"])/g, "\\$1")}"`;
+  const text = String(value);
+  return /\s/.test(text) ? `"${text.replace(/"/g, '""')}"` : text;
+}
+
+function windowsExecutable(command) {
+  if (process.platform !== "win32" || (command !== "pnpm" && command !== "npm")) return command;
+
+  const extensions = command === "pnpm" ? [".exe", ".cmd", ".bat", ""] : [".cmd", ".exe", ".bat", ""];
+  for (const dir of (process.env.PATH ?? "").split(delimiter)) {
+    if (!dir) continue;
+    for (const extension of extensions) {
+      const candidate = join(dir, `${command}${extension}`);
+      if (existsSync(candidate)) return candidate;
+    }
+  }
+
+  return command;
 }
 
 function spawnCommand(command, args, options) {
   if (process.platform === "win32" && (command === "pnpm" || command === "npm")) {
-    return spawnSync([command, ...args].map(quoteWindowsShellArg).join(" "), {
-      shell: true,
-      ...options,
-    });
+    const executable = windowsExecutable(command);
+    if (executable.endsWith(".exe")) return spawnSync(executable, args, options);
+
+    const shell = process.env.ComSpec ?? "cmd.exe";
+    const line = ["call", executable, ...args.map(quoteWindowsShellArg)].join(" ");
+    return spawnSync(shell, ["/d", "/s", "/c", line], options);
   }
 
   return spawnSync(command, args, options);
