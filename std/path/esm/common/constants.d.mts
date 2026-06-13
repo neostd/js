@@ -1,0 +1,7 @@
+import {
+  CHAR_BACKWARD_SLASH,
+  CHAR_COLON,
+  CHAR_DOT,
+  CHAR_FORWARD_SLASH,
+} from "@neostd/chars/constants";
+export { CHAR_BACKWARD_SLASH, CHAR_COLON, CHAR_DOT, CHAR_FORWARD_SLASH };

@@ -1,0 +1,113 @@
+{
+  "name": "@neostd/path",
+  "version": "0.0.0-alpha.0",
+  "description": "Cross-runtime path utilities for POSIX and Windows file paths, based on Deno std/path and path-browserify.",
+  "keywords": [
+    "filesystem",
+    "glob",
+    "path",
+    "posix",
+    "windows"
+  ],
+  "homepage": "https://github.com/neostd/js/tree/dev/std/path#readme",
+  "bugs": {
+    "url": "https://github.com/netstd/js/issues"
+  },
+  "license": "MIT",
+  "author": "Mr. Neobeard <mrneobeard@pm.me>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neostd/js.git"
+  },
+  "files": [
+    "esm"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./esm/index.mjs",
+    "./basename": "./esm/basename.mjs",
+    "./common": "./esm/common.mjs",
+    "./constants": "./esm/constants.mjs",
+    "./dirname": "./esm/dirname.mjs",
+    "./extname": "./esm/extname.mjs",
+    "./format": "./esm/format.mjs",
+    "./from-file-url": "./esm/from-file-url.mjs",
+    "./glob-to-regexp": "./esm/glob-to-regexp.mjs",
+    "./is-absolute": "./esm/is-absolute.mjs",
+    "./is-glob": "./esm/is-glob.mjs",
+    "./join": "./esm/join.mjs",
+    "./join-globs": "./esm/join-globs.mjs",
+    "./normalize": "./esm/normalize.mjs",
+    "./normalize-glob": "./esm/normalize-glob.mjs",
+    "./parse": "./esm/parse.mjs",
+    "./posix": "./esm/posix/index.mjs",
+    "./posix/basename": "./esm/posix/basename.mjs",
+    "./posix/common": "./esm/posix/common.mjs",
+    "./posix/constants": "./esm/posix/constants.mjs",
+    "./posix/dirname": "./esm/posix/dirname.mjs",
+    "./posix/extname": "./esm/posix/extname.mjs",
+    "./posix/format": "./esm/posix/format.mjs",
+    "./posix/from-file-url": "./esm/posix/from-file-url.mjs",
+    "./posix/glob-to-regexp": "./esm/posix/glob-to-regexp.mjs",
+    "./posix/is-absolute": "./esm/posix/is-absolute.mjs",
+    "./posix/is-glob": "./esm/posix/is-glob.mjs",
+    "./posix/join": "./esm/posix/join.mjs",
+    "./posix/join-globs": "./esm/posix/join-globs.mjs",
+    "./posix/normalize": "./esm/posix/normalize.mjs",
+    "./posix/normalize-glob": "./esm/posix/normalize-glob.mjs",
+    "./posix/parse": "./esm/posix/parse.mjs",
+    "./posix/relative": "./esm/posix/relative.mjs",
+    "./posix/resolve": "./esm/posix/resolve.mjs",
+    "./posix/to-file-url": "./esm/posix/to-file-url.mjs",
+    "./posix/to-namespaced-path": "./esm/posix/to-namespaced-path.mjs",
+    "./relative": "./esm/relative.mjs",
+    "./resolve": "./esm/resolve.mjs",
+    "./to-file-url": "./esm/to-file-url.mjs",
+    "./to-namespaced-path": "./esm/to-namespaced-path.mjs",
+    "./types": "./esm/types.mjs",
+    "./windows": "./esm/windows/index.mjs",
+    "./windows/basename": "./esm/windows/basename.mjs",
+    "./windows/common": "./esm/windows/common.mjs",
+    "./windows/constants": "./esm/windows/constants.mjs",
+    "./windows/dirname": "./esm/windows/dirname.mjs",
+    "./windows/extname": "./esm/windows/extname.mjs",
+    "./windows/format": "./esm/windows/format.mjs",
+    "./windows/from-file-url": "./esm/windows/from-file-url.mjs",
+    "./windows/glob-to-regexp": "./esm/windows/glob-to-regexp.mjs",
+    "./windows/is-absolute": "./esm/windows/is-absolute.mjs",
+    "./windows/is-glob": "./esm/windows/is-glob.mjs",
+    "./windows/join": "./esm/windows/join.mjs",
+    "./windows/join-globs": "./esm/windows/join-globs.mjs",
+    "./windows/normalize": "./esm/windows/normalize.mjs",
+    "./windows/normalize-glob": "./esm/windows/normalize-glob.mjs",
+    "./windows/parse": "./esm/windows/parse.mjs",
+    "./windows/relative": "./esm/windows/relative.mjs",
+    "./windows/resolve": "./esm/windows/resolve.mjs",
+    "./windows/to-file-url": "./esm/windows/to-file-url.mjs",
+    "./windows/to-namespaced-path": "./esm/windows/to-namespaced-path.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test",
+    "test:bun": "bun test",
+    "test:deno": "deno test -A",
+    "check": "vp check",
+    "prepublishOnly": "vp run build",
+    "fix": "vp check --fix"
+  },
+  "dependencies": {
+    "@neostd/chars": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "bumpp": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

@@ -53,8 +53,9 @@
   "scripts": {
     "build": "vp pack",
     "dev": "vp pack --watch",
-    "test": "node ../../eng/scripts/node-test-runner.mjs",
-    "test:bun": "bun run test",
+    "test": "vp test",
+    "test:bun": "bun test",
+    "test:deno": "deno test -A --no-check",
     "check": "vp check",
     "prepublishOnly": "vp run build",
     "fix": "vp check --fix"
