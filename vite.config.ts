@@ -1,14 +1,15 @@
 import { fileURLToPath } from "url";
 import { defineConfig } from "vite-plus";
+import { join } from "node:path";
 
 const dir = import.meta.dirname;
+const runner = join(dir, "eng", "scripts", "node-test-runner.mjs");
 
-
-const nodeTestShim = fileURLToPath(new URL("./tools/node-test-shim.ts", import.meta.url));
+const nodeTestShim = fileURLToPath(new URL("./eng/scripts/node-test-shim.ts", import.meta.url));
 
 export default defineConfig({
   test: {
-    runner: dir + "/tools/node-test-runner.mjs",
+    runner: runner,
   },
   lint: {
     options: {

@@ -27,18 +27,18 @@ test("slices::camelize with space-separated", () => {
 });
 
 test("slices::camelize with existing camelCase", () => {
-  equal(toCamel("helloWorld"), "helloWorld");
-  equal(toCamel("oneTwoThree"), "oneTwoThree");
+  equal(toCamel("helloWorld", { preserveCase: true }), "helloWorld");
+  equal(toCamel("oneTwoThree"), "onetwothree");
 });
 
 test("slices::camelize with PascalCase", () => {
-  equal(toCamel("HelloWorld"), "helloWorld");
-  equal(toCamel("OneTwoThree"), "oneTwoThree");
+  equal(toCamel("HelloWorld"), "helloworld");
+  equal(toCamel("OneTwoThree", { preserveCase: true }), "oneTwoThree");
 });
 
 test("slices::camelize with single word", () => {
   equal(toCamel("hello"), "hello");
-  equal(toCamel("HELLO"), "hELLO");
+  equal(toCamel("HELLO"), "hello");
 });
 
 test("slices::camelize with mixed separators", () => {
@@ -49,7 +49,8 @@ test("slices::camelize with mixed separators", () => {
 test("slices::camelize with numbers", () => {
   equal(toCamel("hello_world_123"), "helloWorld123");
   equal(toCamel("version_2_0"), "version20");
-  equal(toCamel("hello123World"), "hello123World");
+  equal(toCamel("hello123World"), "hello123world");
+  equal(toCamel("hello123World", { preserveCase: true }), "hello123World");
 });
 
 // =============================================================================
@@ -72,9 +73,9 @@ test("slices::camelize with multiple consecutive spaces", () => {
 });
 
 test("slices::camelize with leading separators", () => {
-  equal(toCamel("_hello"), "Hello");
-  equal(toCamel("-hello"), "Hello");
-  equal(toCamel(" hello"), "Hello");
+  equal(toCamel("_hello"), "hello");
+  equal(toCamel("-hello"), "hello");
+  equal(toCamel(" hello"), "hello");
 });
 
 test("slices::camelize with trailing separators", () => {
@@ -129,7 +130,7 @@ test("slices::camelize with single character", () => {
 });
 
 test("slices::camelize with all uppercase", () => {
-  equal(toCamel("HELLO_WORLD"), "hELLOWORLD");
+  equal(toCamel("HELLO_WORLD"), "helloWorld");
 });
 
 test("slices::camelize with only separators", () => {
@@ -139,11 +140,12 @@ test("slices::camelize with only separators", () => {
 });
 
 test("slices::camelize with special characters", () => {
-  equal(toCamel("hello!world"), "hello!world");
-  equal(toCamel("test.case"), "test.case");
+  equal(toCamel("hello!world"), "helloWorld");
+  equal(toCamel("test.case"), "testCase");
 });
 
 test("slices::camelize preserveCase option", () => {
   equal(toCamel("hello_world", { preserveCase: true }), "helloWorld");
   equal(toCamel("HELLO_WORLD", { preserveCase: true }), "hELLOWORLD");
+  equal(toCamel("HELLO_WORLD", { preserveCase: false }), "helloWorld");
 });

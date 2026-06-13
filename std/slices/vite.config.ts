@@ -3,8 +3,8 @@ import { join } from "node:path";
 import { defineConfig } from "vite-plus";
 
 const dir = join(import.meta.dirname, "..", "..");
-const runner = join(dir, "tools", "node-test-runner.mjs");
-const nodeTestShim = fileURLToPath(new URL("../../tools/node-test-shim.ts", import.meta.url));
+const runner = join(dir, "eng", "scripts", "node-test-runner.mjs");
+const nodeTestShim = fileURLToPath(new URL("../../eng/scripts/node-test-shim.ts", import.meta.url));
 
 export default defineConfig({
   pack: {

@@ -15,13 +15,15 @@
  */
 
 import { CharArrayBuilder } from "./char-array-builder.ts";
-import { CHAR_HYPHEN_MINUS, CHAR_UNDERSCORE } from "@neostd/chars/constants";
+import { CHAR_UNDERSCORE } from "@neostd/chars/constants";
 import { isDigit } from "@neostd/chars/is-digit";
 import { isLetter } from "@neostd/chars/is-letter";
 import { isSpace } from "@neostd/chars/is-space";
 import { toLower } from "@neostd/chars/to-lower";
 import { toUpper } from "@neostd/chars/to-upper";
+import { isPunc } from "@neostd/chars/is-punc";
 import { type CharBuffer, toCharSliceLike } from "./utils.ts";
+import { isSymbol } from "@neostd/chars";
 
 /**
  * Options for the `camelize` function.
@@ -80,6 +82,7 @@ export function camelize(value: CharBuffer | string, options?: CamelizeOptions):
   const sb = new CharArrayBuilder();
 
   let last = 0;
+  let started = false;
   for (let i = 0; i < value.length; i++) {
     const c = v.at(i) ?? -1;
     if (c === -1) {
@@ -87,24 +90,34 @@ export function camelize(value: CharBuffer | string, options?: CamelizeOptions):
     }
 
     if (i === 0 && isLetter(c)) {
+      sb.appendChar(toLower(c));
+      started = true;
+      last = c;
+      continue;
+    }
+
+    // skip leading punctuation and spaces
+    if (!started && (isPunc(c) || isSpace(c))) {
+      last = 0;
+      continue;
+    }
+
+    started = true;
+
+    if (isLetter(c)) {
+      if (last === CHAR_UNDERSCORE) {
+        sb.appendChar(toUpper(c));
+        last = c;
+        continue;
+      }
+
+  
       sb.appendChar(options.preserveCase ? c : toLower(c));
       last = c;
       continue;
     }
 
-    if (isLetter(c)) {
-      if (last === CHAR_UNDERSCORE) {
-        sb.appendChar(options.preserveCase ? c : toUpper(c));
-        last = c;
-        continue;
-      }
-
-      sb.appendChar(c);
-      last = c;
-      continue;
-    }
-
-    if (c === CHAR_HYPHEN_MINUS || c === CHAR_UNDERSCORE || isSpace(c)) {
+    if (isPunc(c) || isSpace(c) || isSymbol(c)) {
       last = CHAR_UNDERSCORE;
       continue;
     }
