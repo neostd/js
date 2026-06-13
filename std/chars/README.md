@@ -10,7 +10,7 @@ The module will handle characters outside latin and ascii such as
 Cyrillic or Greek characters. The chars library is heavily based on golang's
 unicode module.
 
-![logo](https://raw.githubusercontent.com/neostd/js/refs/heads/master/eng/assets/logo.png)
+![logo](https://raw.githubusercontent.com/neostd/js/refs/heads/dev/eng/assets/logo.png)
 
 [![JSR](https://jsr.io/badges/@neostd/chars)](https://jsr.io/@neostd/chars)
 [![npm version](https://badge.fury.io/js/@neostd%2Fchars.svg)](https://badge.fury.io/js/@neostd%2Fchars)

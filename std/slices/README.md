@@ -30,7 +30,7 @@ example: `equalFold`, `startsWithFold`, `endsWithFold`, `indexOfFold`
 perform case insensitive comparisons over strings or CharSliceLike
 objects such as CharSlice or Uint32Arrays.
 
-![logo](https://raw.githubusercontent.com/neostd/js/refs/heads/master/eng/assets/logo.png)
+![logo](https://raw.githubusercontent.com/neostd/js/refs/heads/dev/eng/assets/logo.png)
 
 [![JSR](https://jsr.io/badges/@neostd/slices)](https://jsr.io/@neostd/slices)
 [![npm version](https://badge.fury.io/js/@neostd%2Fslices.svg)](https://badge.fury.io/js/@neostd%2Fslices)
