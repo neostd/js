@@ -1,0 +1,55 @@
+{
+  "name": "@neostd/env",
+  "version": "0.0.0-alpha.0",
+  "description": "Cross-runtime environment variable, PATH, and shell-style expansion utilities.",
+  "keywords": [
+    "browser",
+    "bun",
+    "deno",
+    "env",
+    "environment",
+    "expand",
+    "path",
+    "process"
+  ],
+  "homepage": "https://github.com/neostd/js/tree/dev/std/env#readme",
+  "bugs": {
+    "url": "https://github.com/netstd/js/issues"
+  },
+  "license": "MIT",
+  "author": "Mr. Neobeard <mrneobeard@pm.me>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neostd/js.git"
+  },
+  "files": [
+    "esm"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./esm/index.mjs",
+    "./expand": "./esm/expand.mjs",
+    "./export": "./esm/export.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test",
+    "test:bun": "bun test",
+    "test:deno": "deno test -A --no-check",
+    "check": "vp check",
+    "prepublishOnly": "vp run build",
+    "fix": "vp check --fix"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "bumpp": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  }
+}

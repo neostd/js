@@ -1,6 +1,10 @@
 packages:
   - std/*
+  - os/*
   - ssh/*
+
+allowBuilds:
+  koffi: set this to true or false
 
 catalog:
   "vite-plus": "0.1.24"
