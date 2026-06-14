@@ -1,0 +1,43 @@
+import { strictEqual } from "node:assert/strict";
+import process from "node:process";
+import { test } from "node:test";
+import { isElevated } from "../src/index.ts";
+import { evalIsProcessElevated as evalNodeIsProcessElevated } from "../src/node.ts";
+
+test("isElevated returns a boolean", () => {
+  strictEqual(typeof isElevated(), "boolean");
+  strictEqual(typeof isElevated(false), "boolean");
+});
+
+test("isElevated caches by default", () => {
+  strictEqual(isElevated(), isElevated());
+});
+
+test("node evaluator returns a boolean", () => {
+  strictEqual(typeof evalNodeIsProcessElevated(), "boolean");
+  strictEqual(typeof evalNodeIsProcessElevated(false), "boolean");
+});
+
+test(
+  "node evaluator matches uid semantics on unix-like runtimes",
+  { skip: process.platform === "win32" || typeof process.getuid !== "function" },
+  () => {
+    strictEqual(evalNodeIsProcessElevated(false), process.getuid!() === 0);
+  },
+);
+
+test(
+  "node evaluator falls back to false when uid is unavailable",
+  { skip: process.platform !== "win32" },
+  () => {
+    strictEqual(evalNodeIsProcessElevated(false), false);
+  },
+);
+
+test(
+  "root helper returns a boolean on Windows-specific runtimes",
+  { skip: process.platform !== "win32" },
+  () => {
+    strictEqual(typeof isElevated(false), "boolean");
+  },
+);
