@@ -58,7 +58,8 @@
     "test:deno": "deno test -A --no-check",
     "check": "vp check",
     "prepublishOnly": "vp run build",
-    "fix": "vp check --fix"
+    "fix": "vp check --fix",
+    "update": "vp pack && vp check --fix && vp test && vp run test:deno && vp run test:bun"
   },
   "dependencies": {
     "@neostd/chars": "workspace:*",

@@ -1,18 +1,16 @@
 {
-  "name": "@neostd/env",
+  "name": "@neostd/ansi",
   "version": "0.0.0-alpha.0",
-  "description": "Cross-runtime environment variable, PATH, and shell-style expansion utilities.",
+  "description": "ANSI color detection, styles, and terminal settings.",
   "keywords": [
-    "browser",
-    "bun",
-    "deno",
-    "env",
-    "environment",
-    "expand",
-    "path",
-    "process"
+    "ansi",
+    "color",
+    "terminal",
+    "tty",
+    "std",
+    "neostd"
   ],
-  "homepage": "https://github.com/neostd/js/tree/dev/std/env#readme",
+  "homepage": "https://github.com/neostd/js/tree/dev/std/ansi#readme",
   "bugs": {
     "url": "https://github.com/netstd/js/issues"
   },
@@ -28,8 +26,10 @@
   "type": "module",
   "exports": {
     ".": "./esm/index.mjs",
-    "./expand": "./esm/expand.mjs",
-    "./export": "./esm/export.mjs",
+    "./detector": "./esm/detector.mjs",
+    "./enums": "./esm/enums.mjs",
+    "./settings": "./esm/settings.mjs",
+    "./styles": "./esm/styles.mjs",
     "./package.json": "./package.json"
   },
   "publishConfig": {
@@ -45,6 +45,10 @@
     "prepublishOnly": "vp run build",
     "fix": "vp check --fix",
     "update": "vp pack && vp check --fix && vp test && vp run test:deno && vp run test:bun"
+  },
+  "dependencies": {
+    "@neostd/env": "workspace:*",
+    "@neostd/process": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "catalog:",
