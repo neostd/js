@@ -1,0 +1,31 @@
+import { MachineRole, ProductEdition, ProductType, SuiteMask } from "./types.mjs";
+import {
+  getWindowsDomainInfo,
+  getWindowsOsRelease,
+  getWindowsOsReleaseJson,
+  getWindowsOsReleaseText,
+  getWindowsProductEdition,
+  getWindowsVersion,
+  isAvailable,
+  isWindowsDomainController,
+  isWindowsDomainJoined,
+  isWindowsServer,
+  isWindowsWorkstation,
+} from "./os_release.mjs";
+export {
+  MachineRole,
+  ProductEdition,
+  ProductType,
+  SuiteMask,
+  getWindowsDomainInfo,
+  getWindowsOsRelease,
+  getWindowsOsReleaseJson,
+  getWindowsOsReleaseText,
+  getWindowsProductEdition,
+  getWindowsVersion,
+  isAvailable,
+  isWindowsDomainController,
+  isWindowsDomainJoined,
+  isWindowsServer,
+  isWindowsWorkstation,
+};

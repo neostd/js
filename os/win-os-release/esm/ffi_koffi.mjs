@@ -1,0 +1,104 @@
+import "./types.mjs";
+import { createRequire } from "node:module";
+//#region src/ffi_koffi.ts
+const koffi = createRequire(import.meta.url)("koffi");
+const OSVERSIONINFOEXW = koffi.struct("OSVERSIONINFOEXW", {
+  dwOSVersionInfoSize: "uint32",
+  dwMajorVersion: "uint32",
+  dwMinorVersion: "uint32",
+  dwBuildNumber: "uint32",
+  dwPlatformId: "uint32",
+  szCSDVersion: koffi.array("char16_t", 128),
+  wServicePackMajor: "uint16",
+  wServicePackMinor: "uint16",
+  wSuiteMask: "uint16",
+  wProductType: "uint8",
+  wReserved: "uint8",
+});
+const DSROLE_PRIMARY_DOMAIN_INFO_BASIC = koffi.struct("DSROLE_PRIMARY_DOMAIN_INFO_BASIC", {
+  MachineRole: "uint32",
+  Flags: "uint32",
+  DomainNameFlat: "char16_t *",
+  DomainNameDns: "char16_t *",
+  DomainForestName: "char16_t *",
+  DomainGuidData1: "uint32",
+  DomainGuidData2: "uint16",
+  DomainGuidData3: "uint16",
+  DomainGuidData4: koffi.array("uint8", 8),
+});
+const ntdll = koffi.load("ntdll.dll");
+const k32 = koffi.load("kernel32.dll");
+const netapi32 = koffi.load("netapi32.dll");
+const RtlGetVersion = ntdll.func(
+  "int32 __stdcall RtlGetVersion(_Inout_ OSVERSIONINFOEXW *lpVersionInformation)",
+);
+const GetProductInfo = k32.func(
+  "int __stdcall GetProductInfo(uint32 dwOSMajorVersion, uint32 dwOSMinorVersion, uint32 dwSpMajorVersion, uint32 dwSpMinorVersion, _Out_ uint32 *pdwReturnedProductType)",
+);
+const DsRoleGetPrimaryDomainInformation = netapi32.func(
+  "uint32 __stdcall DsRoleGetPrimaryDomainInformation(void *lpServer, uint32 InfoLevel, _Out_ void **Buffer)",
+);
+const DsRoleFreeMemory = netapi32.func("void __stdcall DsRoleFreeMemory(void *Buffer)");
+const backend = {
+  getVersion() {
+    const info = {
+      dwOSVersionInfoSize: koffi.sizeof(OSVERSIONINFOEXW),
+      dwMajorVersion: 0,
+      dwMinorVersion: 0,
+      dwBuildNumber: 0,
+      dwPlatformId: 0,
+      szCSDVersion: Array.from({ length: 128 }, () => 0),
+      wServicePackMajor: 0,
+      wServicePackMinor: 0,
+      wSuiteMask: 0,
+      wProductType: 0,
+      wReserved: 0,
+    };
+    const status = RtlGetVersion(info);
+    if (status !== 0) throw new Error(`RtlGetVersion failed with NTSTATUS ${status}`);
+    const csdVersion = Array.isArray(info.szCSDVersion)
+      ? info.szCSDVersion.join("").replaceAll("\0", "")
+      : String(info.szCSDVersion ?? "").replaceAll("\0", "");
+    return {
+      majorVersion: info.dwMajorVersion,
+      minorVersion: info.dwMinorVersion,
+      buildNumber: info.dwBuildNumber,
+      platformId: info.dwPlatformId,
+      csdVersion,
+      servicePackMajor: info.wServicePackMajor,
+      servicePackMinor: info.wServicePackMinor,
+      suiteMask: info.wSuiteMask,
+      productType: info.wProductType,
+    };
+  },
+  getProductInfo(majorVersion, minorVersion, spMajor, spMinor) {
+    const outArr = [0];
+    GetProductInfo(majorVersion, minorVersion, spMajor, spMinor, outArr);
+    return outArr[0];
+  },
+  getDomainInfo() {
+    const outArr = [null];
+    if (DsRoleGetPrimaryDomainInformation(null, 1, outArr) !== 0)
+      return {
+        machineRole: 0,
+        flags: 0,
+        domainNameFlat: "",
+        domainNameDns: "",
+        forestName: "",
+      };
+    try {
+      const info = koffi.decode(outArr[0], DSROLE_PRIMARY_DOMAIN_INFO_BASIC);
+      return {
+        machineRole: info.MachineRole,
+        flags: info.Flags,
+        domainNameFlat: info.DomainNameFlat ?? "",
+        domainNameDns: info.DomainNameDns ?? "",
+        forestName: info.DomainForestName ?? "",
+      };
+    } finally {
+      if (outArr[0]) DsRoleFreeMemory(outArr[0]);
+    }
+  },
+};
+//#endregion
+export { backend };
