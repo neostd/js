@@ -1,0 +1,57 @@
+{
+  "name": "@neostd/win-cred",
+  "version": "0.0.0-alpha.0",
+  "description": "Windows Credential Manager access using runtime-specific FFI backends.",
+  "keywords": [
+    "credential",
+    "credman",
+    "ffi",
+    "koffi",
+    "windows"
+  ],
+  "homepage": "https://github.com/neostd/js/tree/dev/os/win-cred#readme",
+  "bugs": {
+    "url": "https://github.com/netstd/js/issues"
+  },
+  "license": "MIT",
+  "author": "Mr. Neobeard <mrneobeard@pm.me>",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/neostd/js.git"
+  },
+  "files": [
+    "esm"
+  ],
+  "type": "module",
+  "exports": {
+    ".": "./esm/index.mjs",
+    "./credential": "./esm/credential.mjs",
+    "./types": "./esm/types.mjs",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "vp pack",
+    "dev": "vp pack --watch",
+    "test": "vp test",
+    "test:bun": "bun test",
+    "test:deno": "deno test -A --no-check",
+    "check": "vp check",
+    "prepublishOnly": "vp run build",
+    "fix": "vp check --fix",
+    "update": "vp pack && vp check --fix && vp test && vp run test:deno && vp run test:bun"
+  },
+  "devDependencies": {
+    "@types/bun": "^1.3.8",
+    "@types/node": "catalog:",
+    "@typescript/native-preview": "catalog:",
+    "bumpp": "catalog:",
+    "typescript": "catalog:",
+    "vite-plus": "catalog:"
+  },
+  "peerDependencies": {
+    "koffi": "^2.9.0"
+  }
+}

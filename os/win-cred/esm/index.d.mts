@@ -1,0 +1,38 @@
+import {
+  CredEnumerateFlags,
+  CredPersist,
+  CredType,
+  CredWriteFlags,
+  Credential,
+  CredentialBackend,
+  RawCredential,
+} from "./types.mjs";
+import {
+  WriteOptions,
+  decodeSecret,
+  encodeSecret,
+  isAvailable,
+  listCredentials,
+  readCredential,
+  readSecret,
+  removeCredential,
+  saveCredential,
+} from "./credential.mjs";
+export {
+  CredEnumerateFlags,
+  CredPersist,
+  CredType,
+  CredWriteFlags,
+  type Credential,
+  type CredentialBackend,
+  type RawCredential,
+  type WriteOptions,
+  decodeSecret,
+  encodeSecret,
+  isAvailable,
+  listCredentials,
+  readCredential,
+  readSecret,
+  removeCredential,
+  saveCredential,
+};
